@@ -1,0 +1,28 @@
+name: build
+
+on:
+  push:
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux
+    steps:
+      - name: Update system to latest
+        run: pacman -Syu --noconfirm
+      - name: Install dependencies
+        run: pacman -S base-devel git cmake ninja python llvm-libs compiler-rt --noconfirm
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          useradd --create-home builder
+          cp -r . ~builder
+          sudo -u builder bash <<EOF
+            cd ~ && makepkg
+          EOF
+          cp ~builder/*.zst .
+      - uses: actions/upload-artifact@v4
+        with:
+          path: "*.zst"
