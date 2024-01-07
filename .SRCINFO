@@ -1,0 +1,20 @@
+pkgbase = clangd-patched
+	pkgdesc = Trunk version of standalone clangd binary, with a patch
+	pkgver = 18.r16371.g0ebe97115dc7
+	pkgrel = 1
+	url = https://llvm.org/
+	arch = x86_64
+	license = custom:Apache 2.0 with LLVM Exception
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = python
+	depends = llvm-libs
+	depends = gcc
+	depends = compiler-rt
+	source = git+https://github.com/llvm/llvm-project.git
+	source = prevent-oom.patch
+	sha256sums = SKIP
+	sha256sums = 340fb5b9941b040297174d4623f2e641f59eb79adba2f571f5df6b40c2e79caf
+
+pkgname = clangd-patched
