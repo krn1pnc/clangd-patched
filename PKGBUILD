@@ -1,8 +1,8 @@
 # Maintainer: krn1pnc <krn1pnc@outlook.com>
 
 pkgname=clangd-patched
-pkgver=18.r16371.g0ebe97115dc7
-pkgrel=1
+pkgver=0
+pkgrel=0
 pkgdesc="Trunk version of standalone clangd binary, with a patch"
 arch=("x86_64")
 url="https://llvm.org/"
@@ -17,7 +17,7 @@ sha256sums=("SKIP"
 pkgver() {
     cd "${srcdir}/llvm-project"
 
-    git describe --long --match llvmorg-\* | sed -r "s/llvmorg-([^-]*)-(init|rc[0-9]+)-(.*)/\1-r\3/;s/-/./g"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {
